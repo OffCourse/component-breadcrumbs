@@ -1,0 +1,33 @@
+{
+  "name": "offcourse-component-breadcrumbs",
+  "version": "0.0.1",
+  "description": "A react component for breadcrumbs",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "gulp build",
+    "test": "NODE_ENV=test node_modules/.bin/mocha ./test/index.spec.coffee",
+    "test_watch": "NODE_ENV=test node_modules/.bin/mocha -w ./test/index.spec.coffee",
+    "lint": "gulp lint",
+    "lint_watch": "gulp lint_watch"
+  },
+  "author": "Jan Hein Hoogstad",
+  "license": "MIT",
+  "dependencies": {
+    "classnames": "^2.1.2",
+    "ramda": "^0.14.0",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "babel": "^5.5.4",
+    "babel-eslint": "^3.1.14",
+    "coffee-script": "^1.9.3",
+    "eslint": "^0.22.1",
+    "eslint-plugin-react": "^2.5.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-eslint": "^0.13.2",
+    "jsdom": "^5.4.3",
+    "mocha-gwt": "^0.1.13",
+    "mockery": "^1.4.0"
+  }
+}
