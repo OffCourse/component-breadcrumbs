@@ -14,7 +14,11 @@ describe "Breadcrumbs Component", ->
 
   Given -> 
     testdom "<html><body></body></html>"
-    @levels = { current: "bar", foo: "1", bar: "1", baz: false }
+    @levels = 
+      current: "bar"
+      foo: id: "1", title: "foobar"
+      bar: id: "1", title: "barbaz"
+      baz: false
     @selectLevel = () -> 
 
   When  -> 
@@ -24,8 +28,12 @@ describe "Breadcrumbs Component", ->
     classes = @subject.className.split ' '
     classes.includes "breadcrumbs"
   And   ->
-    args  = { current: "bar", level: ['foo', "1"], @selectLevel }
+    current = false
+    level   = { type: "foo", title: "foobar", id: "1" }
+    args    = { current, level, @selectLevel }
     expect(@spy.getCall(0).args[0]).to.deep.equal(args)
   And   ->
-    args  = { current: "bar", level: ['bar', "1"], @selectLevel }
+    current = true
+    level   = { type: "bar", title: "barbaz", id: "1" }
+    args    = { current, level, @selectLevel }
     expect(@spy.getCall(1).args[0]).to.deep.equal(args)
