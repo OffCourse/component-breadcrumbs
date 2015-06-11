@@ -1,32 +1,31 @@
-{ renderElement, testdom, mockModule, disableMocks } = require './helpers'
+require './helpers'
 
-describe "Layout Container", ->
+describe "Breadcrumbs Component", ->
 
   beforeAll ->
     moduleUnderTest = "../src/index.jsx"
     mockModules = [
       "offcourse-component-breadcrumb"
     ]
-
-    @Component = mockModule moduleUnderTest, mockModules
+    { @Component, @spy } = mockModule moduleUnderTest, mockModules
 
   afterAll ->
     disableMocks()
 
-  Given -> testdom "<html><body></body></html>"
+  Given -> 
+    testdom "<html><body></body></html>"
+    @levels = { current: "bar", foo: "1", bar: "1", baz: false }
+    @selectLevel = () -> 
 
-  describe "General", ->
-    Given ->
-      @levels =
-        current: "bar"
-        foo: "1"
-        bar: "1"
-        baz: false
+  When  -> 
+    @subject  = renderElement @Component, { @levels, @selectLevel }
 
-    When  ->
-      subject  = renderElement @Component, { @levels }
-      @classes = subject.className.split ' '
-      @breadcrumbs = subject.querySelectorAll '.mock'
-
-    Then  -> @classes.includes "breadcrumbs"
-    Then  -> @breadcrumbs.length == 2
+  Then  -> 
+    classes = @subject.className.split ' '
+    classes.includes "breadcrumbs"
+  And   ->
+    args  = { current: "bar", level: ['foo', "1"], @selectLevel }
+    expect(@spy.getCall(0).args[0]).to.deep.equal(args)
+  And   ->
+    args  = { current: "bar", level: ['bar', "1"], @selectLevel }
+    expect(@spy.getCall(1).args[0]).to.deep.equal(args)

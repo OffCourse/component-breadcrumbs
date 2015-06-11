@@ -18,13 +18,16 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    let levels = this.props.levels;
-    let current = levels.current || '';
+    let { levels, selectLevel } = this.props;
+    let current = levels.current || "";
     let filterLevels = R.filter(([key, value]) => key !== "current" && value);
     let filteredLevels = filterLevels(R.toPairs(levels));
+
     let createBreadcrumbs = R.map((level) => (
-      <Breadcrumb key={ level } level={ level } current={ current }/>
+      <Breadcrumb key={ level } level={ level }
+        selectLevel={ selectLevel } current={ current }/>
     ));
+
     let breadcrumbs = createBreadcrumbs(filteredLevels);
 
     return (

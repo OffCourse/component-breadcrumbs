@@ -1,9 +1,14 @@
 React = require 'react/addons'
 { jsdom } = require 'jsdom'
 mockery = require 'mockery'
-
+sinon = require('sinon')
+chai = require 'chai'
+expect = chai.expect
+sinonChai = require "sinon-chai"
+chai.use(sinonChai)
 TestUtils = React.addons.TestUtils
 {div} = React.DOM
+mockery = require 'mockery'
 
 `function testdom(markup){
   if (typeof document !== 'undefined') return
@@ -18,7 +23,7 @@ renderElement = (Component, options) ->
   React.findDOMNode container
 
 mockModule = (moduleUnderTest, mockModules) ->
-  mockery = require 'mockery'
+
   mockery.registerAllowables [
     moduleUnderTest, 
     'react', 
@@ -26,42 +31,27 @@ mockModule = (moduleUnderTest, mockModules) ->
     'classnames',
     'ramda'
   ]
-  mockComponents = [One, Two, Three]
+
+  container = MockComponent: React.createClass render: -> null
+  spy = sinon.spy(container, 'MockComponent')
+
   mockModules.forEach (name, index) =>
-    mockery.registerMock name, mockComponents[index % 3]
+    mocks = mockery.registerMock name, container.MockComponent
+
   mockery.enable
     warnOnReplace: false,
     warnOnUnregistered: true
-  require moduleUnderTest
+  Component = require moduleUnderTest
+  return { Component, spy }
 
 disableMocks = =>
   mockery.disable()
 
-class MockComponent extends React.Component
 
-  constructor: ->
-    super
-
-  render: -> 
-    (div {className: "mock #{@name}" } )
-
-class One extends MockComponent 
-
-  constructor: ->
-    super
-    @name = "mock_one"
-
-class Two extends MockComponent 
-
-  constructor: ->
-    super
-    @name = "mock_two"
-
-class Three extends MockComponent 
-
-  constructor: ->
-    super
-    @name = "mock_three"
-
-
-module.exports = { testdom, renderElement, mockModule, disableMocks }
+global.sinon = sinon
+global.expect = expect
+global.TestUtils = TestUtils
+global.testdom = testdom
+global.renderElement = renderElement
+global.mockModule = mockModule
+global.disableMocks = disableMocks
