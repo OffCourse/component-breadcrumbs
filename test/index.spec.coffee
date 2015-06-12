@@ -19,10 +19,10 @@ describe "Breadcrumbs Component", ->
       foo: id: "1", title: "foobar"
       bar: id: "1", title: "barbaz"
       baz: false
-    @selectLevel = () -> 
+    @setLevel = () -> 
 
   When  -> 
-    @subject  = renderElement @Component, { @levels, @selectLevel }
+    @subject  = renderElement @Component, { @levels, @setLevel }
 
   Then  -> 
     classes = @subject.className.split ' '
@@ -30,10 +30,10 @@ describe "Breadcrumbs Component", ->
   And   ->
     current = false
     level   = { type: "foo", title: "foobar", id: "1" }
-    args    = { current, level, @selectLevel }
+    args    = { current, level, @setLevel }
     expect(@spy.getCall(0).args[0]).to.deep.equal(args)
   And   ->
     current = true
     level   = { type: "bar", title: "barbaz", id: "1" }
-    args    = { current, level, @selectLevel }
+    args    = { current, level, @setLevel }
     expect(@spy.getCall(1).args[0]).to.deep.equal(args)

@@ -18,7 +18,7 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    let { levels, selectLevel } = this.props;
+    let { levels, setLevel } = this.props;
     let filterLevels = R.filter(([key, value]) => key !== "current" && value);
     let filteredLevels = filterLevels(R.toPairs(levels));
 
@@ -28,8 +28,7 @@ class Breadcrumbs extends React.Component {
       let current = levels.current === level.type;
 
       return <Breadcrumb key={ levelData[0] } level={ level }
-        selectLevel={ selectLevel } current={ current }/>;
-
+        setLevel={ setLevel } current={ current }/>;
     });
 
     let breadcrumbs = createBreadcrumbs(filteredLevels);
@@ -42,8 +41,13 @@ class Breadcrumbs extends React.Component {
   };
 }
 
+Breadcrumb.defaultPropTypes = {
+  setLevel(){}
+};
+
 Breadcrumbs.propTypes = {
-  levels: React.PropTypes.object.isRequired
+  levels: React.PropTypes.object.isRequired,
+  setLevel: React.PropTypes.func
 };
 
 export default Breadcrumbs;

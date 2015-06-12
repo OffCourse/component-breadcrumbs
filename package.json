@@ -1,10 +1,11 @@
 {
   "name": "offcourse-component-breadcrumbs",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A react component for breadcrumbs",
   "main": "lib/index.js",
   "scripts": {
     "build": "gulp build",
+    "release": "npm test && npm run lint && gulp build && npm publish",
     "test": "NODE_ENV=test node_modules/.bin/mocha ./test/index.spec.coffee",
     "test_watch": "NODE_ENV=test node_modules/.bin/mocha -w ./test/index.spec.coffee",
     "lint": "gulp lint",
@@ -15,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.1.2",
-    "offcourse-component-breadcrumb": "0.0.2",
+    "offcourse-component-breadcrumb": "0.1.0",
     "ramda": "^0.14.0",
     "react": "^0.13.3"
   },
