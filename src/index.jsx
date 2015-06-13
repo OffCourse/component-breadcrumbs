@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import R from "ramda";
 
-import Breadcrumb from "offcourse-component-breadcrumb";
+import LevelButton from "offcourse-component-level-button";
 
 class Breadcrumbs extends React.Component {
 
@@ -27,21 +27,21 @@ class Breadcrumbs extends React.Component {
       let level = { type, title, id };
       let current = levels.current === level.type;
 
-      return <Breadcrumb key={ levelData[0] } level={ level }
-        setLevel={ setLevel } current={ current }/>;
+      return (
+        <LevelButton key={ levelData[0] } level={ level }
+                     setLevel={ setLevel } current={ current }/>
+      );
     });
 
     let breadcrumbs = createBreadcrumbs(filteredLevels);
 
     return (
-      <nav className={ this.classes() }>
-       <ul>{ breadcrumbs }</ul>
-      </nav>
+      <nav className={ this.classes() }><ul>{ breadcrumbs }</ul></nav>
     );
   };
 }
 
-Breadcrumb.defaultPropTypes = {
+Breadcrumbs.defaultPropTypes = {
   setLevel(){}
 };
 

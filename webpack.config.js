@@ -18,8 +18,10 @@ var config = {
   devtool: 'eval-source-map',
   module: {
     loaders: [
-      { test: /\.(js|jsx)$/, loaders: ['react-hot', 'babel?experimental'], exclude: /node_modules/},
-      { test: /\.(js|jsx)$/, loader: "eslint-loader", exclude: /node_modules/},
+        { test: /\.(js|jsx)$/, loaders: ['react-hot', 'babel?experimental'], exclude: /node_modules/},
+        { test: /\.(js|jsx)$/, loader: "eslint-loader", exclude: /node_modules/},
+        { test: /\.css$/, loader: 'style!css'  },
+        { test: /\.(png|woff)$/, loader: 'url-loader?limit=100000'  }
     ]
   },
   plugins: [

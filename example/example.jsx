@@ -24,10 +24,8 @@ class Example extends React.Component {
     levels.current = current;
 
     return (
-      <section>
-        <BreadCrumbs
-          levels={ levels }
-          setLevel={ this.setLevel.bind(this) }/>
+      <section className="layout-topbar">
+        <BreadCrumbs levels={ levels } setLevel={ this.setLevel.bind(this) }/>
         <div>Current Level = { current }</div>
       </section>
     );

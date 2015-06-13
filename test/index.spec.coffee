@@ -5,7 +5,7 @@ describe "Breadcrumbs Component", ->
   beforeAll ->
     moduleUnderTest = "../src/index.jsx"
     mockModules = [
-      "offcourse-component-breadcrumb"
+      "offcourse-component-level-button"
     ]
     { @Component, @spy } = mockModule moduleUnderTest, mockModules
 
